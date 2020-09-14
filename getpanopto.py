@@ -7,9 +7,9 @@ root = ET.parse('feed.rss').getroot()
 items = root[0].findall('item')
 
 for item in items:
-    title = item.find('title').text
+    title = item.find('title').text.replace("/", "-")
     url = item.find('enclosure').get('url')
     print(title)
     print(url)
-    command = f"""wget "{url}" -O "{title}.mp4" """
+    command = f"""wget --no-clobber "{url}" -O "{title}.mp4" """
     os.system(command)
